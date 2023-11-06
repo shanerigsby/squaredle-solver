@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Squaredle Solver</title>
+</head>
+<body>
+    <div id="solution"></div>
+    <script>
+        function getBoard() {
+            const queryString = document.URL.split("?")[1];
+            if (!queryString) {
+                return;
+            }
+            const board = queryString.split("board=")[1];
+            if (!board) {
+                return;
+            }
+            return board;
+        }
+
+        function getSolution(board) {
+            // todo: fetch from azure function
+            // function should check cf kv for today's solution
+            // if not there, solve and store to kv
+            // return solution
+            return "some,words,here";
+        }
+
+        function showWord(word) {
+            const solution = document.querySelector("#solution");
+            const p = document.createElement("p");
+            p.textContent = word;
+            solution.appendChild(p);
+        }
+
+        const board = getBoard();
+        
+        if (board) {
+            const solution = getSolution(board);
+            if (solution) {
+                const words = solution.split(",");
+                words.forEach(w => showWord(w));
+            }
+        }
+    </script>
+</body>
+</html>
