@@ -66,7 +66,7 @@ body {
 }
 
 .grid-item {
-    flex: 0 0 20%; /* 20% width for 5 columns */
+    flex: 0 0 12%; /* 20% width for 5 columns */
     box-sizing: border-box;
     text-align: left;
     padding: 5px;

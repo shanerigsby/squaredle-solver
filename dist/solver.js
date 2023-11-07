@@ -33,7 +33,7 @@ if (board) {
     try {
         const response = await fetch(`/puzzles/${board}`);
         const responseObj = await response.json();
-        responseObj.solution.forEach(w => showAnswer(w));
+        responseObj.solution.sort((a,b) => a.length - b.length).forEach(w => showAnswer(w));
         if (!responseObj.solution.success) {
             showError(responseObj.message);
         }
