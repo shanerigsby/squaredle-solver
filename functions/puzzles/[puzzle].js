@@ -1,11 +1,16 @@
 export async function onRequest(context) {
+    let result = {};
     var puzzle = validatePuzzle(context.params.puzzle);
 
     if (!puzzle) {
-        return new Response('Invalid puzzle', { status: 400 });
+        result = {
+            success: false,
+            message: 'invalid puzzle',
+            solution: ''
+        };
+        return new Response(JSON.stringify(result), { status: 400 });
     }
 
-    let result = '';
     var solution = await context.env.NAMESPACE.get(puzzle);
 
     if (!solution) {
@@ -15,17 +20,34 @@ export async function onRequest(context) {
             if (response.ok) {
                 const text = await response.text();
                 await context.env.NAMESPACE.put(puzzle, text);
-                result = `The puzzle: ${puzzle} has solution: ${text}`;
+                result = {
+                    success: true,
+                    message: '',
+                    solution: text
+                };
             } else {
-                result = `Failed to fetch: ${url}`;
+                result = {
+                    success: false,
+                    message: `Failed to fetch: ${url}`,
+                    solution: ''
+                };
             }
         } catch (err) {
-            result = `Error: ${err}`;
+            console.error(err);
+            result = {
+                success: false,
+                message: `Error: ${error}`,
+                solution: ''
+            };
         }
     } else {
-        result = solution;
+        result = {
+            success: true,
+            message: '',
+            solution: solution
+        };
     }
-    return new Response(result);
+    return new Response(JSON.stringify(result));
 }
 
 function validatePuzzle(puzzle) {
