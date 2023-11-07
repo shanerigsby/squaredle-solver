@@ -1,3 +1,10 @@
+/*
+    With a folder called "functions" in the root of the project, child items constitute a route.
+    Using brackets around the name of a js file makes that a named parameter.
+    Here, the route is /puzzles/<puzzle>.
+    Save processing in the azure function by first trying to retrieve a puzzle solution from the KV.
+    If no solution found in KV, fetch from the azure function and store to the KV.
+*/
 export async function onRequest(context) {
     let result = {};
     var puzzle = validatePuzzle(context.params.puzzle);
