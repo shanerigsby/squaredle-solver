@@ -20,11 +20,13 @@ function show(word) {
 const board = getBoard();
 
 if (board) {
-    const solution = await fetch(`/puzzles/${board}`);
-    if (solution) {
-        solution.solution.forEach(w => show(w));
-    }
-    if (!solution.success) {
-        show(solution.message);
-    }
+    fetch(`/puzzles/${board}`)
+        .then(res => res.json())
+        .then(result => {
+            result.solution.forEach(w => show(w));
+            if (!result.solution.success) {
+                show(result.message);
+            }
+        })
+        .catch(err => console.error(err));
 }
