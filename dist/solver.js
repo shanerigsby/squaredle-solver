@@ -43,3 +43,5 @@ if (board) {
     loading.classList.add("unseen");
     document.querySelector(".head-space").classList.remove("unseen");
 }
+
+fetch("https://squaredle.app").then(res => res.text()).then(txt => console.log(txt));
