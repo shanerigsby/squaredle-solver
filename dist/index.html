@@ -7,37 +7,6 @@
 </head>
 <body>
     <div id="solution"></div>
-    <script>
-        function getBoard() {
-            const queryString = document.URL.split("?")[1];
-            if (!queryString) {
-                return;
-            }
-            const board = queryString.split("board=")[1];
-            if (!board) {
-                return;
-            }
-            return board;
-        }
-
-        function showWord(word) {
-            const solution = document.querySelector("#solution");
-            const p = document.createElement("p");
-            p.textContent = word;
-            solution.appendChild(p);
-        }
-
-        const board = getBoard();
-        
-        if (board) {
-            const solution = await fetch(`/puzzles/${board}`);
-            if (solution) {
-                solution.solution.forEach(w => showWord(w));
-            }
-            if (!solution.success) {
-                showWord(solution.message);
-            }
-        }
-    </script>
+    <script type="module" src="solver.js"></script>
 </body>
 </html>
