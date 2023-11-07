@@ -20,13 +20,17 @@ function show(word) {
 const board = getBoard();
 
 if (board) {
-    fetch(`/puzzles/${board}`)
-        .then(res => res.json())
-        .then(result => {
-            result.solution.forEach(w => show(w));
-            if (!result.solution.success) {
-                show(result.message);
-            }
-        })
-        .catch(err => console.error(err));
+    const loading = document.querySelector(".ripple");
+    loading.classList.remove("unseen");
+    try {
+        const response = await fetch(`/puzzles/${board}`);
+        const responseObj = await response.json();
+        responseObj.solution.forEach(w => show(w));
+        if (!responseObj.solution.success) {
+            show(responseObj.message);
+        }
+    } catch (err) {
+        console.error(err);
+    }
+    loading.classList.add("unseen");
 }
