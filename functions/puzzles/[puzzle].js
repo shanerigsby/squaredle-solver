@@ -22,7 +22,8 @@ export async function onRequest(context) {
 
     if (!solution) {
         try {
-            const url = `https://wordfind.azurewebsites.net/api/solver?board=${puzzle}`;
+            const functionKey = context.env.FUNCTION_KEY;
+            const url = `https://wordfind.azurewebsites.net/api/solver?board=${puzzle}&code=${functionKey}`;
             const response = await fetch(url);
             if (response.ok) {
                 const text = await response.text();
