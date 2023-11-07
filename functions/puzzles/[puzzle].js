@@ -1,16 +1,30 @@
 export async function onRequest(context) {
     var puzzle = validatePuzzle(context.params.puzzle);
-    if (puzzle) {
-        var solution = await context.env.NAMESPACE.get(puzzle);
-        if (!solution) {
-            fetch(`https://wordfind.azurewebsites.net/api/solver?board=${puzzle}`)
-                .then(res => res.text())
-                .then(text => solution = text)
-                .catch(err => console.error(err));
-        }
-        return new Response(`The puzzle: ${puzzle} has solution: ${solution}`);
+
+    if (!puzzle) {
+        return new Response('Invalid puzzle', { status: 400 });
     }
-    return new Response();
+
+    let result = '';
+    var solution = await context.env.NAMESPACE.get(puzzle);
+
+    if (!solution) {
+        try {
+            const url = `https://wordfind.azurewebsites.net/api/solver?board=${puzzle}`;
+            const response = await fetch(url);
+            if (response.ok) {
+                const text = await response.text();
+                await context.env.NAMESPACE.put(puzzle, text);
+                result = `The puzzle: ${puzzle} has solution: ${solution}`;
+            } else {
+                result = `Failed to fetch: ${url}`;
+            }
+        } catch (err) {
+            result = `Error: ${err}`;
+        }
+    }
+    return new Response(result);
+
 }
 
 function validatePuzzle(puzzle) {
