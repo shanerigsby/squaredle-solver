@@ -41,4 +41,5 @@ if (board) {
         console.error(err);
     }
     loading.classList.add("unseen");
+    document.querySelector(".head-space").classList.remove("unseen");
 }
