@@ -22,9 +22,10 @@ export async function onRequest(context) {
         } catch (err) {
             result = `Error: ${err}`;
         }
+    } else {
+        result = solution;
     }
     return new Response(result);
-
 }
 
 function validatePuzzle(puzzle) {
