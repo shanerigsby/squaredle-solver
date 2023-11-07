@@ -25,7 +25,13 @@
             // function should check cf kv for today's solution
             // if not there, solve and store to kv
             // return solution
+            const solution = getFromKV(board);
+            
             return "some,words,here";
+        }
+
+        function getFromKV(board) {
+
         }
 
         function showWord(word) {
@@ -45,6 +51,6 @@
             }
         }
     </script>
-    <script src="solver.js"></script>
+    <!-- <script src="solver.js"></script> -->
 </body>
 </html>
