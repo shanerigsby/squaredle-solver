@@ -10,11 +10,19 @@ function getBoard() {
     return board;
 }
 
-function show(word) {
+function showAnswer(word) {
+    const grid = document.querySelector(".grid-container");
+    const answer = document.createElement("div");
+    answer.classList.add("grid-item");
+    answer.textContent = word;
+    grid.appendChild(answer);
+}
+
+function showError(msg) {
     const solution = document.querySelector("#solution");
-    const p = document.createElement("p");
-    p.textContent = word;
-    solution.appendChild(p);
+    const msgDiv = document.createElement('div');
+    msgDiv.textContent = msg;
+    solution.parentNode.insertBefore(msgDiv, solution);
 }
 
 const board = getBoard();
@@ -25,9 +33,9 @@ if (board) {
     try {
         const response = await fetch(`/puzzles/${board}`);
         const responseObj = await response.json();
-        responseObj.solution.forEach(w => show(w));
+        responseObj.solution.forEach(w => showAnswer(w));
         if (!responseObj.solution.success) {
-            show(responseObj.message);
+            showError(responseObj.message);
         }
     } catch (err) {
         console.error(err);
