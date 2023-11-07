@@ -6,7 +6,7 @@ export async function onRequest(context) {
         result = {
             success: false,
             message: 'invalid puzzle',
-            solution: ''
+            solution: []
         };
         return new Response(JSON.stringify(result), { status: 400 });
     }
@@ -23,13 +23,13 @@ export async function onRequest(context) {
                 result = {
                     success: true,
                     message: '',
-                    solution: text
+                    solution: text.split(',')
                 };
             } else {
                 result = {
                     success: false,
                     message: `Failed to fetch: ${url}`,
-                    solution: ''
+                    solution: []
                 };
             }
         } catch (err) {
@@ -37,14 +37,14 @@ export async function onRequest(context) {
             result = {
                 success: false,
                 message: `Error: ${error}`,
-                solution: ''
+                solution: []
             };
         }
     } else {
         result = {
             success: true,
             message: '',
-            solution: solution
+            solution: solution.split(',')
         };
     }
     return new Response(JSON.stringify(result));
