@@ -1,0 +1,1 @@
+javascript:(function(){var b='';document.querySelectorAll('#board div.letter>div>div').forEach(x => b=b+(x.textContent));window.open(`https://squaredle-solver.pages.dev/?board=${b}`, "_blank");})();
