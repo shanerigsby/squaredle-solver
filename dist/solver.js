@@ -1,3 +1,6 @@
+// I've had no luck implementing the logic in javascript that works fine in dotnet.
+// This script not in use.
+
 const gameBoard = 'FOXFFEGLHNDADEBW'.toLowerCase();
 const visited = Array(4).fill().map(() => Array(4).fill(false));
 const grid = Array(4).fill().map(() => Array(4).fill(''));

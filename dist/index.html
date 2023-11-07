@@ -20,20 +20,6 @@
             return board;
         }
 
-        function getSolution(board) {
-            // todo: fetch from azure function
-            // function should check cf kv for today's solution
-            // if not there, solve and store to kv
-            // return solution
-            const solution = getFromKV(board);
-            
-            return "some,words,here";
-        }
-
-        function getFromKV(board) {
-
-        }
-
         function showWord(word) {
             const solution = document.querySelector("#solution");
             const p = document.createElement("p");
@@ -44,13 +30,14 @@
         const board = getBoard();
         
         if (board) {
-            const solution = getSolution(board);
+            const solution = await fetch(`/puzzles/${board}`);
             if (solution) {
-                const words = solution.split(",");
-                words.forEach(w => showWord(w));
+                solution.solution.forEach(w => showWord(w));
+            }
+            if (!solution.success) {
+                showWord(solution.message);
             }
         }
     </script>
-    <!-- <script src="solver.js"></script> -->
 </body>
 </html>
