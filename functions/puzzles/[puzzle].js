@@ -15,7 +15,7 @@ export async function onRequest(context) {
             if (response.ok) {
                 const text = await response.text();
                 await context.env.NAMESPACE.put(puzzle, text);
-                result = `The puzzle: ${puzzle} has solution: ${solution}`;
+                result = `The puzzle: ${puzzle} has solution: ${text}`;
             } else {
                 result = `Failed to fetch: ${url}`;
             }
