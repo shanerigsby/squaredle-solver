@@ -1,0 +1,28 @@
+{
+    "manifest_version": 3,
+    "name": "Solver",
+    "version": "1.0",
+    "description": "Show squaredle.app answers",
+    "permissions": ["activeTab", "scripting"],
+    "host_permissions": [
+            "https://squaredle.app/*",
+            "https://www.squaredle.app/*"
+    ],
+    "background": {
+      "service_worker": "background.js"
+    },
+    "action": {
+      "default_popup": "",
+      "default_icon": {
+        "16": "images/icon-16.png",
+        "48": "images/icon-48.png",
+        "128": "images/icon-128.png"
+      }
+    },
+    "icons": {
+      "16": "images/icon-16.png",
+      "48": "images/icon-48.png",
+      "128": "images/icon-128.png"
+    }
+  }
+  
